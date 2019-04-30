@@ -13,6 +13,8 @@ The four modules will include:
 We also want to include response pages that are based on how well a user is doing within each of the modules.
 * this will may include different components for each page and the use of switch or if-then statements.
 * The set of links will be inlcluded as the concluson of the quiz based on the user's score on the quiz. These links will be generated links based on the user score.
+  
+  The user will also be able to create their own quizzes.
 
 ### <u>Score Keeping</u> ###
 
