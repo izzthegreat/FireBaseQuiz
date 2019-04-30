@@ -3,7 +3,7 @@ We are creating a quiz based application. This application will include 4 module
 
 ### <u>__The Four Modules__ </u> ###
 
-The four modules will include:
+Each of the four modules will include:
   * questions
   * answers
   * quizzes
