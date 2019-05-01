@@ -1,6 +1,8 @@
 import React from 'react'
 import '../css/home.css'
 import Firebase from 'firebase'
+import Navbar from "./components/Navbar"
+import { Switch, Route, BrowserRouter } from 'react-router';
 
  // Initialize Firebase
  var config = {
@@ -24,6 +26,18 @@ class Home extends React.Component {
     render(){
         return(
             <div>
+                <div>
+                <BrowserRouter>
+     <Navigation>
+     <Switch>
+     <Route path ="/" component={Home} exact/>
+     {/* <Route path ="/about" component={About}/>
+     <Route path ="/contact" component={Contact}/> */}
+     <Route component={Error} />
+     </Switch>
+     </Navigation>
+     </BrowserRouter>
+                </div>
                 <center><u><h1>More Stuff Coming</h1></u></center>
             </div>
         )
