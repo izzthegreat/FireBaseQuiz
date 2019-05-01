@@ -28,14 +28,14 @@ class Home extends React.Component {
             <div>
                 <div>
                 <BrowserRouter>
-     <Navigation>
+     <Navbar>
      <Switch>
      <Route path ="/" component={Home} exact/>
      {/* <Route path ="/about" component={About}/>
      <Route path ="/contact" component={Contact}/> */}
      <Route component={Error} />
      </Switch>
-     </Navigation>
+     </Navbar>
      </BrowserRouter>
                 </div>
                 <center><u><h1>More Stuff Coming</h1></u></center>
