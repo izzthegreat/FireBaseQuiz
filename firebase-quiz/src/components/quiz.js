@@ -1,6 +1,6 @@
 import React from 'react'
-import Firebse from 'firebase'
-import Question from './Question.js'
+import Firebase from 'firebase'
+import Question from './question.js'
 import '../css/quiz.css'
 
  // Initialize Firebase
@@ -15,18 +15,82 @@ import '../css/quiz.css'
 
   Firebase.initializeApp(config);
 
-  const Database = Firebase.database()
+  const database = Firebase.database()
 
 class Quiz extends React.Component {
     constructor(){
         super()
+
+        this.state = {
+            quiz: [
+                {
+                    id: 1,
+                    ask: 'Question?',
+                    a: 'An answer',
+                    b: 'Another Answer',
+                    c: 'Something Else',
+                    d: 'Last One',
+                    correct: 'b'
+                }
+            ],
+            score: 0
+        }
     }
 
-    render(){
+    componentDidMount() {
+        const quiz = database.ref("quiz/1")
+
+        quiz.once('value', snapshot => {
+            this.setState({
+                quiz:[
+                    snapshot.val()
+                ]
+            })
+        })
+    }
+    
+    getScore(e) {
+        // var quiz = e.target.elements.quizName
+        // var answers = [];
+        // for (let i = 0; i < quiz.length ;i++) {
+        //   answers.push(quiz.elements[i].value)
+        // }
+        // let score=0
+        // for(let i = 0; i < quiz.length; i++) {
+        //     if (answers[i]===this.state.quiz[i].correct){
+        //         score++
+        //     }
+        // }
+        // this.setState({
+        //     score: (score/quiz.length)
+        // })
+    }
+
+    render() {
         return(
             <div>
-                <h1>{this.props.title}</h1>
-                <Question/>
+                <form id='quizName' onSubmit={this.getScore()}>
+                    <h1>{this.props.title}</h1>
+                    <ol>
+                        {
+                            this.state.quiz.map(question => {
+                                return <Question
+                                    id={question.id}
+                                    question={question.ask}
+                                    a={question.a}
+                                    b={question.b}
+                                    c={question.c}
+                                    d={question.d}
+                                    correct={question.correct}
+                                />
+                            })
+                        }
+                    </ol>
+                    <input type='submit'/>
+                </form>
+                <div id='output'>
+                Final Score: {this.state.score}%
+                </div>
             </div>
         )
     }
