@@ -1,8 +1,9 @@
 import React from 'react';
 import './App.css';
+import logo from './Images/qblogo.png';
 import Firebase from 'firebase';
 import Navbar from "./components/Navbar";
-import { Switch, Route, BrowserRouter } from 'react-router';
+//import { Switch, Route, BrowserRouter } from 'react-router';
 
  // Initialize Firebase
  var config = {
@@ -15,28 +16,35 @@ import { Switch, Route, BrowserRouter } from 'react-router';
   };
 
   Firebase.initializeApp(config);
-
-  const Database = Firebase.database()
+//eslint-disable-next-line
+  //const Database = Firebase.database()
 
 class Home extends React.Component {
     constructor(){
-        super()
+        super();
+        this.state = {
+            image: logo,
+            speed:2000
+
+        };
     }
 
     render(){
         return(
             <div>
+                <Navbar/>
                 <div>
-                <BrowserRouter>
+
+                {/* <BrowserRouter>
      <Navbar>
      <Switch>
      <Route path ="/home" component={Home} exact/>
-     {/* <Route path ="/about" component={About}/>
-     <Route path ="/contact" component={Contact}/> */}
+     <Route path ="/about" component={About}/>
+     <Route path ="/contact" component={Contact}/> 
      <Route component={Error} />
      </Switch>
      </Navbar>
-     </BrowserRouter>
+     </BrowserRouter> */}
                 </div>
                 <center><u><h1>More Stuff Coming</h1></u></center>
             </div>
