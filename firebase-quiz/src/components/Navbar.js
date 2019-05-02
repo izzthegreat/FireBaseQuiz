@@ -1,65 +1,34 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+//eslint-disable-next-line
+import { NavLink, Nav.Link } from "react-router-dom";
 import "../css/Navbar.css";
+//import Navbar from "react-bootstrap/Navbar";
+const Navbar = ()=> {
+return(
+<div>
+<Navbar bg="light" expand="lg">
+  <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+  <Navbar.Toggle aria-controls="basic-navbar-nav" />
+  <Navbar.Collapse id="basic-navbar-nav">
+    <Nav className="mr-auto">
+      <Nav.Link href="#home">Home</Nav.Link>
+      <Nav.Link href="#link">Link</Nav.Link>
+      <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+        <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+        <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
+        <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
+        <NavDropdown.Divider />
+        <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
+      </NavDropdown>
+    </Nav>
+    <Form inline>
+      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+      <Button variant="outline-success">Search</Button>
+    </Form>
+  </Navbar.Collapse>
+</Navbar>;
+</div>
+)
+}
 
-const Navbar = () => {
-  return (
-    <div>
-        <nav class="navbar navbar-light" style={{"background-color: #e3f2fd"}}>
-      
-      <a class="navbar-brand" href="#">
-    <img src="../images/qblogo-100x100.png" width="30" height="30" alt=""></img>
-  </a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarToggleExternalContent"
-          aria-controls="navbarToggleExternalContent"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon" />
-          </button>
-          <div class="pos-f-t">
-  <div class="collapse" id="navbarToggleExternalContent">
-    <div class="bg-dark p-4">
-      <h5 class="text-white h4">Sign-In</h5>
-      <h5 class="text-white h4">Sign-Up</h5>
-      <h5 class="text-white h4">Account</h5>
-      <h5 class="text-white h4">My Quizzes</h5>
-      <h5 class="text-white h4">My Scores</h5>
-    </div>
-  </div>
-
-        <div>
-          <div class="dropdown">
-            <button
-              class="btn btn-secondary dropdown-toggle"
-              type="button"
-              id="dropdownMenu2"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >Placeholder
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <button class="dropdown-item" type="button">
-                <NavLink to="/">Home</NavLink>
-              </button>
-              <button class="dropdown-item" type="button">
-                Quizzes
-              </button>
-              <button class="dropdown-item" type="button">
-                High Scores
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-      </nav>
-    </div>
-  );
-};
-
-export default Navbar;
+export default Navbar
