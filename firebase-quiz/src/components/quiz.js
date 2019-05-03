@@ -4,6 +4,7 @@ import Question from './question.js'
 import { connect } from 'react-redux'
 import '../css/quiz.css'
 
+
 // Initialize Firebase
 var config = {
     apiKey: "AIzaSyCrvSfTJuNJEUJjg1RW90NpqhKQ5s3SXFk",
@@ -57,12 +58,11 @@ class Quiz extends React.Component {
         this.setState({score: grade})
         //And to the global state
         this.props.quizSubmit(grade)
+ 
     }
 
-    
-
     render() {
-        return(
+        return (
             <div>
                 <form id='quizName' name={this.props.quizName} method='POST' onSubmit={this.getScore.bind(this)}>
                     <h1>{this.props.quizName}</h1>
@@ -81,10 +81,12 @@ class Quiz extends React.Component {
                             })
                         }
                         </ol>
-                        {/*Form submit button*/}
+                        Form submit button
+                        
                         <input type='submit'/>
                     </form>
                     <div id='output'>
+                   
                     Final Score: {this.state.score}%
                     </div>
                 </div>

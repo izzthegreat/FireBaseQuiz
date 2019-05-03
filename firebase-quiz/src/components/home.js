@@ -5,12 +5,15 @@ import Quiz from './quiz';
 import store from '../store/';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Navigation from "./Navbar";
-import Account from "./account";
-import Score from "./score";
+//import Account from "./account";
+//import Score from "./score";
+import Error from "./error";
 
 class Home extends React.Component {
     constructor(){
         super()
+        this.state = {   
+        }
     }
 
     render(){
@@ -19,10 +22,10 @@ class Home extends React.Component {
             <BrowserRouter>
             <Navigation>
                 <Switch>
-                    <Route path= "/" component = {Home}exact/>
-                    <Route path = "/account" component={Account}/>
+                    <Route path= "/" component = {Home} exact/>
+                    {/* <Route path = "/account" component={Account}/> */}
                     <Route path= "/quiz" component ={Quiz}/>
-                    <Route path = "/score" component = {Score}/>
+                    {/* <Route path = "/score" component = {Score}/> */}
                     <Route component = {Error}/>
                 </Switch>
                 </Navigation>

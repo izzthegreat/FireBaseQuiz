@@ -4,6 +4,7 @@ import '../css/quiz.css'
 
 
 class Question extends React.Component {
+   // eslint-disable-next-line 
     constructor(){
         super()
     }
