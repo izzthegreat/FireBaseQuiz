@@ -1,0 +1,33 @@
+/* .navWide {
+    display: none;
+  }
+
+.navNarrow {
+
+    i {
+        float: left;
+    }
+
+    .narrowLinks {
+        display: none;
+
+        a {
+            display: block;
+            float: left;
+            clear: left;
+        }
+    }
+}
+@media (min-width: 480px) {
+
+    nav {
+
+        .navWide {
+            display: block;
+        }
+
+        .navNarrow {
+            display: none;
+        }
+    }
+} */
