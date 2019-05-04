@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { database } from './router'
+import { database } from '../router'
 
 class QuizEditor extends React.Component {
     constructor () {
@@ -21,7 +21,7 @@ class QuizEditor extends React.Component {
     render(){
         return(
             <div>
-                I Work!
+                I Work!<br/>
                 <button onClick={this.props.testCommand}>
                     TEST button
                 </button>

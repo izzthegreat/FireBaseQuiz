@@ -2,7 +2,7 @@ import React from 'react'
 import Question from './question.js'
 import { connect } from 'react-redux'
 import '../css/quiz.css'
-import { database } from './router'
+import { database } from '../router'
 
 class Quiz extends React.Component {
     constructor(){

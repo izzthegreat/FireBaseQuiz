@@ -1,12 +1,12 @@
 import React from 'react'
-import Home from './home'
-import Quiz from './quiz';
-import QuizEditor from './QuizEditor'
-import Navbar from './nav2'
+import Home from './components/home'
+import Quiz from './components/quiz';
+import QuizEditor from './components/QuizEditor'
+import Navbar from './components/nav2'
 import { Provider } from 'react-redux'
 import firebase from 'firebase'
-import store from '../store/'
-import { BrowserRouter as Router, Route} from "react-router-dom"
+import store from './store'
+import { BrowserRouter as Router, Route} from 'react-router-dom'
 
 // Initialize Firebase
 var config = {
