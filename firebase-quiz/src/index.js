@@ -1,11 +1,9 @@
 import React from 'react';
-import App from './App';
+import ReactDOM from 'react-dom'
 import * as serviceWorker from './serviceWorker';
-import Home from './components/home';
+import AppRouter from './components/router';
 
-<<<<<<< Updated upstream
-ReactDOM.render(<App />, document.getElementById('root'));
-=======
+ReactDOM.render(<AppRouter />, document.getElementById('root'));
 
 ReactDOM.render(<Home />, document.getElementById('root'));
 >>>>>>> Stashed changes
