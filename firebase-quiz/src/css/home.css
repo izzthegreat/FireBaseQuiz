@@ -1,7 +1,10 @@
 main{
-
+background: blue;
 }
-#homepage{
+.homepage{
    background-color: aqua;
-    
+   
+}
+.quizsel{
+    background-color: red;
 }

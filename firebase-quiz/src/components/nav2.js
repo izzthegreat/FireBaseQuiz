@@ -1,12 +1,18 @@
 import React from 'react'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap-theme.css'
 import { Link } from 'react-router-dom'
+import "../css/Navbar.css"
+import {Button} from 'react-bootstrap'
+
 
 function Navbar (){
     return (
-        <nav>
+        <nav className = "navbar">
+        
             {/* <ul>
                 <li> */}
-                   <div> <Link to="/">Home</Link>
+                   <div> <Button bsStyle = "primary"><Link to="/">Home</Link></Button>
                 {/* </li>
                 <li> */}
                     <Link to="/quizSelect">Take a Quiz!!</Link>

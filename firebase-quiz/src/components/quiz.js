@@ -1,23 +1,9 @@
 import React from 'react'
-import firebase from 'firebase'
+import {database} from '../router'
 import Question from './question.js'
 import { connect } from 'react-redux'
 import '../css/quiz.css'
 
-
-// Initialize Firebase
-var config = {
-    apiKey: "AIzaSyCrvSfTJuNJEUJjg1RW90NpqhKQ5s3SXFk",
-    authDomain: "g6qb-51732.firebaseapp.com",
-    databaseURL: "https://g6qb-51732.firebaseio.com",
-    projectId: "g6qb-51732",
-    storageBucket: "g6qb-51732.appspot.com",
-    messagingSenderId: "446672263519"
-};
-
-firebase.initializeApp(config);
-
-const database = firebase.database()
 
 class Quiz extends React.Component {
     constructor(){
