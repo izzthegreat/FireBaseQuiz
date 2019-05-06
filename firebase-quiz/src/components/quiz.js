@@ -10,7 +10,9 @@ class Quiz extends React.Component {
         //Ready local state for input
         this.state = { 
             quiz: [{}],
-            score: 0
+            score: 0,
+            quizHidden: false,
+            scoreHidden: true
         }
     }
 
@@ -31,26 +33,29 @@ class Quiz extends React.Component {
         let answers = this.props.answers // Create an array of submmitted answers
         console.log ('Submitted Answers', answers)
         let score=0
-        for(let i = 0; i < answers.length; i++) {
+        let quiz = this.state.quiz
+        for(let i = 0; i < quiz.length; i++) {
             // Compare submitted each of the answers to the correct answers in the database/local state
-            if ( answers[i] === this.state.quiz[i].correct ){ score++ }
+            if ( answers[i] === quiz[i].correct ){ score++ }
         }
         // Set the score as an integer percentile 
-        let grade = ((score/answers.length)*100).toFixed(0)
+        let grade = ((score/quiz.length)*100).toFixed(0)
         // Send the score to the local state...
-        this.setState({score: grade})
+        this.setState({
+            score: grade,
+            quizHidden: true,
+            scoreHidden: false
+            })
         // And to the global state
         this.props.quizSubmit(grade)
     }
-
-    
 
     render() {
         return(
             <div>
                 {/* Quiz Form Start */}
-                <form id='quizName' name={this.props.quizName} method='POST' onSubmit={this.getScore.bind(this)}>
-                    <h1>{this.props.quizName}</h1>
+                <h1>{this.props.quizName}</h1>
+                <form id='quizName' name={this.props.quizName} method='POST' onSubmit={this.getScore.bind(this)} hidden={this.state.quizHidden}>
                     <ol>
                         {
                             // Map the questions from the local state to the pages
@@ -69,9 +74,10 @@ class Quiz extends React.Component {
                         {/*Form submit button*/}
                         <input type='submit'/>
                     </form>
-                    <div id='output'>
-                    Final Score: {this.state.score}%
+                    <div id='output' hidden={this.state.scoreHidden}>
+                    <h3>Final Score:</h3><h2>{this.state.score}%</h2>
                     </div>
+                    <div id='scorePage' hidden={this.state.scoreHidden}></div>
                 </div>
         )
     }

@@ -9,7 +9,7 @@ function Navbar (){
                     <Link to="/">Home</Link>
                 </li>
                 <li>
-                    <Link to="/quiz">Take a Quiz!!</Link>
+                    <Link to="/quizSelect">Take a Quiz!!</Link>
                 </li>
                 <li>
                     <Link to="/editor">Make a Quiz</Link>

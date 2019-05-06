@@ -1,12 +1,13 @@
 import React from 'react'
 import Home from './components/home'
-import Quiz from './components/quiz';
+import Quiz from './components/quiz'
 import QuizEditor from './components/QuizEditor'
+import QuizSelector from './components/quizSelector'
 import Navbar from './components/nav2'
 import { Provider } from 'react-redux'
 import firebase from 'firebase'
 import store from './store'
-import { BrowserRouter as Router, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 // Initialize Firebase
 var config = {
@@ -18,7 +19,7 @@ var config = {
     messagingSenderId: "446672263519"
 };
 
-firebase.initializeApp(config);
+firebase.initializeApp(config)
 
 export const database = firebase.database()
 
@@ -27,9 +28,13 @@ function AppRouter() {
         <Provider store={store}>
             <Router>
                 <Navbar/>
-                <Route path='/' component={Home} exact />
-                <Route path='/quiz' component={Quiz} />
-                <Route path='/editor' component={QuizEditor} />
+                <Switch>
+                    <Route path='/' component={Home} exact />
+                    <Route path='/quiz' component={Quiz} />
+                    <Route path='/quizSelect' component={QuizSelector}/>
+                    <Route path='/editor' component={QuizEditor} />
+                    <Route component={Error}/>
+                </Switch>
             </Router>
         </Provider>
     )
