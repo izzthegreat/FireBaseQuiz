@@ -4,8 +4,10 @@ import '../css/home.css'
 function Home () {
         return(
          
-            <div> 
+            <div className ="homepage"> 
+                <main>
                 This is the home page
+                </main>
             </div>
         )
 }

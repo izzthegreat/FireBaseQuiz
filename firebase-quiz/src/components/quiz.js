@@ -1,8 +1,23 @@
 import React from 'react'
+import firebase from 'firebase'
 import Question from './question.js'
 import { connect } from 'react-redux'
 import '../css/quiz.css'
-import { database } from '../router'
+
+
+// Initialize Firebase
+var config = {
+    apiKey: "AIzaSyCrvSfTJuNJEUJjg1RW90NpqhKQ5s3SXFk",
+    authDomain: "g6qb-51732.firebaseapp.com",
+    databaseURL: "https://g6qb-51732.firebaseio.com",
+    projectId: "g6qb-51732",
+    storageBucket: "g6qb-51732.appspot.com",
+    messagingSenderId: "446672263519"
+};
+
+firebase.initializeApp(config);
+
+const database = firebase.database()
 
 class Quiz extends React.Component {
     constructor(){
@@ -10,15 +25,13 @@ class Quiz extends React.Component {
         //Ready local state for input
         this.state = { 
             quiz: [{}],
-            score: 0,
-            quizHidden: false,
-            scoreHidden: true
+            score: 0
         }
     }
 
     componentDidMount() {
         // Retrieve quiz info from Firebase
-        const quiz = database.ref(`quizzes/${this.props.quizName}/`)
+        const quiz = database.ref("quizzes/quizName/")
         quiz.once('value', snapshot => {
             let questions = snapshot.val()
             this.setState({
@@ -28,37 +41,34 @@ class Quiz extends React.Component {
 
     }
 
-    getScore(e) { // Scoring Machanism
+    getScore(e) { //Scoring Machanism
         e.preventDefault()
-        let answers = this.props.answers // Create an array of submmitted answers
+        let answers = this.props.answers //Create an array of submmitted answers
         console.log ('Submitted Answers', answers)
         let score=0
-        let quiz = this.state.quiz
-        for(let i = 0; i < quiz.length; i++) {
-            // Compare submitted each of the answers to the correct answers in the database/local state
-            if ( answers[i] === quiz[i].correct ){ score++ }
+        for(let i = 0; i < answers.length; i++) {
+            //Compare submitted each of the answers to the correct answers in the database/local state
+            if (answers[i]===this.state.quiz[i].correct){
+                score++
+            }
         }
-        // Set the score as an integer percentile 
-        let grade = ((score/quiz.length)*100).toFixed(0)
-        // Send the score to the local state...
-        this.setState({
-            score: grade,
-            quizHidden: true,
-            scoreHidden: false
-            })
-        // And to the global state
+        //Set the score as an integer percentile 
+        let grade = ((score/answers.length)*100).toFixed(0)
+        //Send the score to the local state...
+        this.setState({score: grade})
+        //And to the global state
         this.props.quizSubmit(grade)
+ 
     }
 
     render() {
-        return(
+        return (
             <div>
-                {/* Quiz Form Start */}
-                <h1>{this.props.quizName}</h1>
-                <form id='quizName' name={this.props.quizName} method='POST' onSubmit={this.getScore.bind(this)} hidden={this.state.quizHidden}>
+                <form id='quizName' name={this.props.quizName} method='POST' onSubmit={this.getScore.bind(this)}>
+                    <h1>{this.props.quizName}</h1>
                     <ol>
                         {
-                            // Map the questions from the local state to the pages
+                            //Map the questions from the local state to the pages
                             this.state.quiz.map(question => {
                                 return <Question
                                     id={question.id}
@@ -71,13 +81,14 @@ class Quiz extends React.Component {
                             })
                         }
                         </ol>
-                        {/*Form submit button*/}
+                        Form submit button
+                        
                         <input type='submit'/>
                     </form>
-                    <div id='output' hidden={this.state.scoreHidden}>
-                    <h3>Final Score:</h3><h2>{this.state.score}%</h2>
+                    <div id='output'>
+                   
+                    Final Score: {this.state.score}%
                     </div>
-                    <div id='scorePage' hidden={this.state.scoreHidden}></div>
                 </div>
         )
     }
@@ -87,7 +98,6 @@ class Quiz extends React.Component {
 function mapStateToProps(state) {
     console.log('Quiz State Mount', state)
     return {
-        quizName: state.quizName,
         answers: state.answers,
         score: state.score
     }
