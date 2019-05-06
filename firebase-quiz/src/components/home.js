@@ -20,7 +20,7 @@ class Home extends React.Component {
         return(
             <Provider store={store}>
             <BrowserRouter>
-            <Navigation>
+            <Navigation/>
                 <Switch>
                     <Route path= "/" component = {Home} exact/>
                     {/* <Route path = "/account" component={Account}/> */}
@@ -28,7 +28,6 @@ class Home extends React.Component {
                     {/* <Route path = "/score" component = {Score}/> */}
                     <Route component = {Error}/>
                 </Switch>
-                </Navigation>
             </BrowserRouter>
             </Provider>
         )
