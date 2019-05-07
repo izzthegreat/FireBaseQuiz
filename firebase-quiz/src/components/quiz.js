@@ -17,8 +17,10 @@ class Quiz extends React.Component {
     }
 
     componentDidMount() {
+        const {match: { params }} = this.props
+        this.props.quizSelect(params.quizName)
         // Retrieve quiz info from Firebase
-        const quiz = database.ref(`quizzes/${this.props.quizName}/`)
+        const quiz = database.ref(`quizzes/${params.quizName}/`)
         quiz.once('value', snapshot => {
             let questions = snapshot.val()
             this.setState({
@@ -102,7 +104,14 @@ function mapDispatchToProps(dispatch) {
                 score: score
             }
             dispatch(action)
-        }
+        },
+        quizSelect: (name) => {
+            const action = {
+                type: 'NEW_QUIZ',
+                quizName: name
+            }
+            dispatch(action)
+    },
     }
 }
 

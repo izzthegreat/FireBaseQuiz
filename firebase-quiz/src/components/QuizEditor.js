@@ -4,6 +4,7 @@ import { database } from '../router'
 import { Link } from 'react-router-dom'
 import Question from './question'
 import Modal from 'react-modal';
+import QuestionEdit from './questionEditor';
 
 class QuizEditor extends React.Component {
     constructor () {
@@ -11,11 +12,13 @@ class QuizEditor extends React.Component {
         this.state = {
             quiz: [{}],
             newQuizName: 'Default',
+            newQuizDesc: '',
             score: 0,
             modalOpen: false,
             nameHidden: false,
             quizHidden: true,
             qInputHidden: false,
+            editmode: false,
             thanksHidden:true
         }
     }
@@ -23,8 +26,10 @@ class QuizEditor extends React.Component {
     createNewQuiz(e) {
         e.preventDefault()
         let newQuizName = e.target.elements.quizName.value
+        let quizDesc = e.target.elements.quizDesc.value
         this.setState({
                 newQuizName: newQuizName,
+                newQuizDesc: quizDesc,
                 quiz: [],
                 nameHidden: true,
                 quizHidden: false
@@ -90,48 +95,88 @@ class QuizEditor extends React.Component {
 
     submitQuiz(){
         database.ref(`quizzes/${this.state.newQuizName}/`).set(this.state.quiz)
+        database.ref (`quizzes/quizNames/${this.state.newQuizName}/desc/`).set(this.state.newQuizDesc)
         this.setState({
             quizHidden: true,
             thanksHidden: false
         })
     }
 
+    toggleEditOn (){
+        this.setState({
+            editmode: true
+        })
+    }
+
+    toggleEditOff(){
+        this.setState({
+            editmode:false
+        })
+    }
+
+
     render(){
         return(
             <div>
                 <div hidden={this.state.nameHidden}>
-                <form onSubmit={this.createNewQuiz.bind(this)}>
-                    <label>
-                    What is the name of your quiz? <br/>
-                    <input type='text' name='quizName' />
-                    </label>
-                    <input type='submit' />
-                </form>
+                    <form onSubmit={this.createNewQuiz.bind(this)}>
+                        <label>
+                            What is the name of your quiz? <br/>
+                            <input type='text' name='quizName' />
+                        </label><br/>
+                        <label>
+                            Give a quick summary of your quiz. <br/>
+                        <textarea name='quizDesc' rows='5' cols='50' />
+                        </label><br/>
+                        <input type='submit' />
+                    </form>
                 </div>
                 <div className='quizPreview' hidden={this.state.quizHidden}>
-                {/* Quiz Form Start */}
-                <form id='quizName' name={this.state.newQuizName} method='POST' onSubmit={this.getScore.bind(this)}>
-                    <h1>{this.state.newQuizName}</h1>
-                    <ol>
-                        {
-                            // Map the questions from the local state to the pages
-                            this.state.quiz.map(question => {
-                                return <Question
-                                    id={question.id}
-                                    question={question.ask}
-                                    a={question.a}
-                                    b={question.b}
-                                    c={question.c}
-                                    d={question.d}
-                                />
-                            })
-                        }
+                    {/* Quiz Form Start */}
+                    <form id='quizName' name={this.state.newQuizName} method='POST' onSubmit={this.getScore.bind(this)}>
+                        <h1>{this.state.newQuizName}</h1>
+                        <p>{this.state.newQuizDesc}</p>
+                        <ol>
+                            {
+                                // Map the questions from the local state to the pages
+                                this.state.quiz.map(question => {
+                                    if (this.state.editmode === false) {
+                                        return (
+                                            <div>
+                                                <Question
+                                                    id={question.id}
+                                                    question={question.ask}
+                                                    a={question.a}
+                                                    b={question.b}
+                                                    c={question.c}
+                                                    d={question.d}
+                                                />
+                                                <input type='button' value='edit' onClick={this.toggleEditOn.bind(this)}/>
+                                            </div>
+                                        )
+                                    } else {
+                                        return ( 
+                                            <div>
+                                                <QuestionEdit
+                                                    id={question.id}
+                                                    ask={question.ask}
+                                                    a={question.a}
+                                                    b={question.b}
+                                                    c={question.c}
+                                                    d={question.d}
+                                                    correct={question.correct}
+                                                />
+                                            </div>
+                                        )
+                                    }
+                                })
+                            }
                         </ol>
                         {/*Form submit button*/}
                         <input type='submit'/>
                     </form>
                     <div id='output'>
-                    Final Score: {this.state.score}%
+                        Final Score: {this.state.score}%
                     </div>
                 </div>
                 <Modal isOpen={this.state.modalOpen} onRequestClose={this.closeModal}>
@@ -141,7 +186,6 @@ class QuizEditor extends React.Component {
                                Add New Question
                             </h1>
                         </div>
-                        
                         <form id='addQuestion' onSubmit={this.addQuestion.bind(this)} method='POST'>
                             <div hidden={this.state.qInputHidden}>
                                 Question:<input type='text' name='ask'/><br/>
@@ -149,7 +193,7 @@ class QuizEditor extends React.Component {
                                 B:<input type='text' name='b'/><br/>
                                 C:<input type='text' name='c'/><br/>
                                 D:<input type='text' name='d'/><br/>
-                                <select name='correct'>
+                                Correct Answer?<select name='correct'>
                                     <option value='a'>A</option>
                                     <option value='b'>B</option>
                                     <option value='c'>C</option>

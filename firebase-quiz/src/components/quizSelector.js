@@ -8,28 +8,21 @@ class QuizSelector extends React.Component {
         super()
         this.state={
             quizNames:[],
-            selectedQuiz:undefined
         }
     }
 
     componentDidMount() {
-        let data = database.ref('quizzes')
+        let data = database.ref('quizzes/quizNames/')
         data.once('value', snapshot => {
-            let quizzes = snapshot.val()
-            let quizNames = Object.keys(quizzes)
-            console.log(quizzes)
+            let quizNames = snapshot.val()
+            console.log(quizNames)
             this.setState({
                 quizNames: quizNames
             })
         })
 
     }
-    quizSelect(e){
-        let quizName  = e.target.id
-        console.log(quizName)
-        this.props.quizSelect(quizName)
-    }
-    
+
     render() {
         return(
             <div>
@@ -40,15 +33,18 @@ class QuizSelector extends React.Component {
                 </div>
                 <div>
                     <nav>
-                        {this.state.quizNames.map((name) => {
-                            return(
-                                <div>
-                                    <Link to='/quiz' id={name} onClick={this.quizSelect.bind(this)}>
-                                        {name}
-                                    </Link>
-                                </div>
-                            )
-                        })}
+                        {Object.keys(this.state.quizNames)
+                            .map((name) => {
+                                return(
+                                    <div>
+                                        <Link to={`/quiz/${name}`}>
+                                            {name}
+                                        </Link>
+                                        <p>{this.state.quizNames[name].desc}</p>
+                                    </div>
+                                )
+                            }
+                        )}
                     </nav>
                 </div>
             </div>

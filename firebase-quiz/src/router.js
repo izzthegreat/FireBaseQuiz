@@ -7,6 +7,7 @@ import Navbar from './components/nav2'
 import { Provider } from 'react-redux'
 import firebase from 'firebase'
 import store from './store'
+import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 // Initialize Firebase
@@ -23,21 +24,42 @@ firebase.initializeApp(config)
 
 export const database = firebase.database()
 
-function AppRouter() {
-    return (
-        <Provider store={store}>
-            <Router>
-                <Navbar/>
-                <Switch>
-                    <Route path='/' component={Home} exact />
-                    <Route path='/quiz' component={Quiz} />
-                    <Route path='/quizSelect' component={QuizSelector}/>
-                    <Route path='/editor' component={QuizEditor} />
-                    <Route component={Error}/>
-                </Switch>
-            </Router>
-        </Provider>
-    )
+class AppRouter extends React.Component {
+    
+    render () {
+        return (
+            <Provider store={store}>
+                <Router>
+                    <Navbar />
+                    <Switch>
+                        <Route path='/' component={Home} exact />
+                        <Route path='/quiz/:quizName' component={Quiz} />
+                        <Route path='/quizSelect' component={QuizSelector}/>
+                        <Route path='/editor' component={QuizEditor} />
+                        <Route component={Error}/>
+                    </Switch>
+                </Router>
+            </Provider>
+        )
+    }
 }
 
-export default AppRouter
+function mapStateToProps (state) {
+    return {
+        quizName: state.quizName
+    }
+}
+
+function mapDispatchToProps (dispatch) {
+    return {
+        quizSelect: (name) => {
+            const action = {
+                type: 'NEW_QUIZ',
+                quizName: name
+            }
+            dispatch (action)
+        }
+    }
+}
+
+export default connect (mapStateToProps, mapDispatchToProps)(AppRouter)
