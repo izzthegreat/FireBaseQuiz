@@ -1,9 +1,12 @@
 import React from 'react'
 import '../css/home.css'
-<<<<<<< Updated upstream
+
+
+
+import './nav2.js'
 
 function Home () {
-=======
+
 import Firebase from 'firebase'
 import NavBar from './NavBar'
 
@@ -27,13 +30,16 @@ class Home extends React.Component {
     }
 
     render(){
->>>>>>> Stashed changes
+
         return(
          
-            <div> 
+            <div className ="homepage"> 
+                <main>
                 This is the home page
+                </main>
             </div>
         )
+    }
 }
 
 export default Home

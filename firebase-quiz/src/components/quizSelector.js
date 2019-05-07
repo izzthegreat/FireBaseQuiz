@@ -2,6 +2,8 @@ import React from 'react'
 import { database } from '../router'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import '../css/home.css'
+
 
 class QuizSelector extends React.Component {
     constructor(){
@@ -33,7 +35,7 @@ class QuizSelector extends React.Component {
     render() {
         return(
             <div>
-                <div>
+                <div className ="quizsel">
                     <h1>
                     Choose! Your! Quiz!
                     </h1>
