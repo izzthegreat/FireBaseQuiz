@@ -1,6 +1,6 @@
 import React from 'react';
-import {database} from '../router'
-
+//import {database} from '../router'
+//import QuizSelector from './quizSelector'
 class QuizDel extends React.Component {
     constructor(){
         super()
@@ -10,38 +10,38 @@ class QuizDel extends React.Component {
         }
     }
     componentDidMount() {
-       
-        // Retrieve quiz info from Firebase
-        const quiz = database.ref(`quizzes/quizNames/`)
-        quiz.once('value', snapshot => {
-            let questions = snapshot.val()
-            this.setState({
-                quiz: questions
-                })
-        })
+    const quiz = document.getElementById('name');
+    console.log(quiz)
+        // // Retrieve quiz info from Firebase
+        // const quiz = database.ref(`quizzes/quizNames/`)
+        // quiz.once('value', snapshot => {
+        //     let quizNames = snapshot.val()
+        //     this.setState({
+        //         quiz: quizNames
+        //         })
+        // })
     }
+deleteQuiz(name){
+    let newQuizArr = this.state.quiz;
+    newQuizArr.map((quiz, index) => {
+        if(quiz === quiz.name){
+            this.setState({deletedQuizzes: [index, newQuizArr[index]]})
+            newQuizArr.splice(index, 1)
+        } else{console.log(quiz)}   
+    });
+    this.setState({zw
+        quizNames: [],
+        deleted: true
+    })
+}
 
-    deleteQuiz(name){
-        let newQuizArr = this.state.quizNames;
-        newQuizArr.map((quiz, index)=> {
-            if(name ===quiz.name){
-                this.setState({deletedQuizzes: [index, newQuizArr[index]]})
-                newQuizArr.splice(index, 1);
-            }
-        });
-        this.setState({
-            quizNames: newQuizArr,
-            deleted: true 
-        })
-    }
+   
     render(){
         return(
         <div>
-    <button className ={`btn btn-danger sticky-top ${this.state.deleted}`}>
-    
-    Delete</button>
+    <button className={`btn btn-danger sticky-top `} onClick={this.deleteQuiz.bind(this)}>Delete</button>
     <div>
-        {this.state.quizNames.name}
+       {this.state.newQuizArr}
     </div>
         </div>)
     }

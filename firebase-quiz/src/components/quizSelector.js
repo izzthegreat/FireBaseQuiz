@@ -39,12 +39,15 @@ class QuizSelector extends React.Component {
                         {Object.keys(this.state.quizNames)
                             .map((name) => {
                                 return(
-                                    <div key = {name}>
+                                    <container>
+                                    <div id = {name}>
                                         <Link to={`/quiz/${name}`}>
                                             {name}
                                         </Link>
                                         <p>{this.state.quizNames[name].desc}</p>
-         <QuizDel/>                           </div>
+         <QuizDel/>                           
+         </div>
+         </container>
                                 )
                             }
                         )}
