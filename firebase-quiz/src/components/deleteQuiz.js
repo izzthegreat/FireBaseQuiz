@@ -10,67 +10,46 @@ class QuizDel extends React.Component {
         }
     }
     componentDidMount() {
+       
         // Retrieve quiz info from Firebase
-        const quiz = database.ref("quizzes/quizName/")
+        const quiz = database.ref(`quizzes/quizNames/`)
         quiz.once('value', snapshot => {
             let questions = snapshot.val()
             this.setState({
                 quiz: questions
                 })
         })
-
     }
 
-deleteQuiz(id) {
-    let newQuizArr = this.state.quizNames;
-    newQuizArr.map((quiz, index) => {
-      if (id === quiz.id) {
-        this.setState({deletedQuizzes:[index, newQuizArr[index]]})
-        newQuizArr.splice(index, 1);
-      }
-    });
-    this.setState({
-      quizNames: newQuizArr,
-      deleted: true
-    });
+    deleteQuiz(name){
+        let newQuizArr = this.state.quizNames;
+        newQuizArr.map((quiz, index)=> {
+            if(name ===quiz.name){
+                this.setState({deletedQuizzes: [index, newQuizArr[index]]})
+                newQuizArr.splice(index, 1);
+            }
+        });
+        this.setState({
+            quizNames: newQuizArr,
+            deleted: true 
+        })
+    }
+    render(){
+        return(
+        <div>
+    <button className ={`btn btn-danger sticky-top ${this.state.deleted}`}>
+    
+    Delete</button>
+    <div>
+        {this.state.quizNames.name}
+    </div>
+        </div>)
+    }
 }
-
-undoDelete(){
-    let deletedArray = this.state.deletedQuizzes
-    let newAdd = deletedArray.pop();
-    let index = deletedArray.shift();
-    let quizArray = this.state.quizNames;
-    quizArray.splice(index,0,newAdd);
-    this.setState({
-        quiz: quizArray,
-        deleted: false
-    });
-}
-render(){
-   return (<div>
-    <button className={`btn btn-info sticky-top ${this.state.deleted ? 'show-undo':'undo-button'}`} onClick={this.undoDelete.bind(this)}>Undo</button>
-    </div>)
-}
-}
-
+   
+//quiz needs a unique id that can be removed or set = null
 //warning popup at the delete-- , button trigger alert, the then ok button triggers deletion, and a cancel--- confirmation box
 
-// function mapStateToProps(state) {
-//     console.log('Quiz State Mount', state)
-//     return {
-//         answers: state.answers,
-//         score: state.score
-//     }
-// }
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         quizSubmit: (score) => {
-//             const action = {
-//                 type: 'GRADE_QUIZ',
-//                 score: score
-//             }
-//             dispatch(action)
-//         }
-//     }
-// }
+
+
 export default QuizDel;
