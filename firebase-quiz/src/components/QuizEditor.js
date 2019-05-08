@@ -110,11 +110,10 @@ class QuizEditor extends React.Component {
         })
     }
 
-    updateQuiz(){// Updates the quiz in state with an edited question
+    updateQuiz(edit){// Updates the quiz in state with an edited question
         let quiz = this.state.quiz
-        let edit = this.props.editQuestion
-        console.log(this.props.editQuestion)
-        quiz[edit.id] = edit //... and sends the quiestion to the correct index
+        console.log(edit)
+        quiz[edit.id] = edit //... and sends the question to the correct index
         this.setState({
             quiz: quiz
         })

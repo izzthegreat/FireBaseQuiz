@@ -1,5 +1,5 @@
 import React from 'react'
-import {database} from '../router'
+import { database } from '../router'
 import Question from './question.js'
 import { connect } from 'react-redux'
 import '../css/quiz.css'
@@ -11,6 +11,9 @@ class Quiz extends React.Component {
         //Ready local state for input
         this.state = { 
             quiz: [{}],
+            quizName:'',
+            hideQuiz: false,
+            hideScore: true,
             score: 0
         }
     }
@@ -23,7 +26,8 @@ class Quiz extends React.Component {
         quiz.once('value', snapshot => {
             let questions = snapshot.val()
             this.setState({
-                quiz: questions
+                quiz: questions,
+                quizName: params.quizName
                 })
         })
 
@@ -43,7 +47,12 @@ class Quiz extends React.Component {
         //Set the score as an integer percentile 
         let grade = ((score/answers.length)*100).toFixed(0)
         //Send the score to the local state...
-        this.setState({score: grade})
+        this.setState({
+            score: grade,
+            hideQuiz: true,
+            hideScore: false
+
+        })
         //And to the global state
         this.props.quizSubmit(grade)
  
@@ -52,8 +61,8 @@ class Quiz extends React.Component {
     render() {
         return (
             <div>
-                <form id='quizName' name={this.props.quizName} method='POST' onSubmit={this.getScore.bind(this)}>
-                    <h1>{this.props.quizName}</h1>
+                <form id='quizName' name={this.state.quizName} method='POST' hidden={this.state.hideQuiz} onSubmit={this.getScore.bind(this)}>
+                    <h1>{this.state.quizName}</h1>
                     <ol>
                         {
                             //Map the questions from the local state to the pages
@@ -72,8 +81,7 @@ class Quiz extends React.Component {
                         {/* Form submit button */}
                         <input type='submit'/>
                     </form>
-                    <div id='output'>
-                   
+                    <div id='output' hidden={this.state.hideScore}>
                     Final Score: {this.state.score}%
                     </div>
                 </div>

@@ -1,4 +1,4 @@
-import React, {useState,useRef} from 'react'
+import React, {useState} from 'react'
 import { connect } from 'react-redux'
 import '../css/quiz.css'
 
@@ -12,7 +12,6 @@ function QuestionEdit (props) {
     const [d,setD] = useState(props.d)
     const [correct,setCorrect] = useState(props.correct)
     const [edit,setEdit] = useState(false)
-    window[`form${props.id}`] = useRef()
 
     function getEdit() {
         let update = {
@@ -24,9 +23,7 @@ function QuestionEdit (props) {
             correct: correct,
             id: props.id
         }
-        console.log (update)
-        props.saveQuestion(update)
-        props.updateQuiz()
+        props.updateQuiz(update)
         
     }
 
@@ -35,7 +32,7 @@ function QuestionEdit (props) {
     if (edit===true) {
         question = 
             <div>
-                <form id={`form${props.id}`} ref={window[`form${props.id}`]} method='POST' onSubmit={(e) => getEdit(e)}>
+                <form id={`form${props.id}`}  method='POST' onSubmit={getEdit}>
                 Question:<input type='text' name='ask' onChange={(e)=>setAsk(e.target.value)} defaultValue={ask}/><br/>
                 A:<input type='text' name={`a${props.id}`} onChange={(e)=>setA(e.target.value)} defaultValue={a}/><br/>
                 B:<input type='text' name={`b${props.id}`} onChange={(e)=>setB(e.target.value)} defaultValue={b}/><br/>
@@ -86,14 +83,6 @@ const mapDispatchToProps = (dispatch) => {
             type: 'CHANGE_ANSWER',
             answer: e.target.value,
             i: e.target.name
-            }
-            dispatch (action)
-        },
-        saveQuestion: (question) => {
-            const action = {
-            type: 'SAVE_EDIT',
-            update: question,
-            i: question.id
             }
             dispatch (action)
         }
