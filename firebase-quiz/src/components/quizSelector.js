@@ -30,23 +30,21 @@ class QuizSelector extends React.Component {
             <div>
                 <div className ="quizsel">
                     <h1>
-                    Choose! Your! Quiz!
+                    Choose a quiz!
                     </h1>
                 </div>
                 <div>
                     <nav>
-                        {Object.keys(this.state.quizNames)
-                            .map((name) => {
-                                return(
-                                    <div>
-                                        <Link to={`/quiz/${name}`}>
-                                            {name}
-                                        </Link>
-                                        <p>{this.state.quizNames[name].desc}</p>
-                                    </div>
-                                )
-                            }
-                        )}
+                        {Object.keys(this.state.quizNames).map((name) => {
+                            return(
+                                <div className="quizname">
+                                    <Link to={`/quiz/${name}`} id={name}>
+                                        {name}
+                                    </Link>
+                                    <p>{this.state.quizNames[name].desc}</p>
+                                </div>
+                            )
+                        })}
                     </nav>
                 </div>
             </div>
@@ -62,13 +60,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch){
     return{
-        quizSelect: (name) => {
-                const action = {
-                    type: 'NEW_QUIZ',
-                    quizName: name
-                }
-                dispatch(action)
-        },
         testFunction: () => {
             const action = {
                 type: 'TEST'

@@ -3,13 +3,13 @@ import Home from './components/home'
 import Quiz from './components/quiz'
 import QuizEditor from './components/QuizEditor'
 import QuizSelector from './components/quizSelector'
-import Navbar from './components/nav2'
 import { Provider } from 'react-redux'
 import firebase from 'firebase/app'
 import 'firebase/database'
 import store from './store'
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import Navigation from './components/nav2';
 
 // Initialize Firebase
 var config = {
@@ -31,7 +31,7 @@ class AppRouter extends React.Component {
         return (
             <Provider store={store}>
                 <Router>
-                    <Navbar />
+                    <Navigation />
                     <Switch>
                         <Route path='/' component={Home} exact />
                         <Route path='/quiz/:quizName' component={Quiz} />

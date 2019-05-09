@@ -11,7 +11,8 @@ class Quiz extends React.Component {
         //Ready local state for input
         this.state = { 
             quiz: [{}],
-            quizName:'',
+            quizName: '',
+            quizDesc: '',
             hideQuiz: false,
             hideScore: true,
             score: 0
@@ -23,12 +24,18 @@ class Quiz extends React.Component {
         this.props.quizSelect(params.quizName)
         // Retrieve quiz info from Firebase
         const quiz = database.ref(`quizzes/${params.quizName}/`)
+        const desc = database.ref(`quizzes/quizNames/${params.quizName}/desc`)
         quiz.once('value', snapshot => {
             let questions = snapshot.val()
             this.setState({
                 quiz: questions,
                 quizName: params.quizName
                 })
+        })
+        desc.once('value', snapshot => {
+            this.setState({
+                quizDesc: snapshot.val()
+            })
         })
 
     }
@@ -63,6 +70,7 @@ class Quiz extends React.Component {
             <div>
                 <form id='quizName' name={this.state.quizName} method='POST' hidden={this.state.hideQuiz} onSubmit={this.getScore.bind(this)}>
                     <h1>{this.state.quizName}</h1>
+                    <p>{this.state.quizDesc}</p>
                     <ol>
                         {
                             //Map the questions from the local state to the pages
