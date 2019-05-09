@@ -128,11 +128,11 @@ class QuizEditor extends React.Component {
                     <form onSubmit={this.createNewQuiz.bind(this)}>
                         <label>
                             What is the name of your quiz? <br/>
-                            <input type='text' name='quizName' />
+                            <input className = 'inputname' type='text' name='quizName' />
                         </label><br/>
                         <label>
                             Give a quick summary of your quiz. <br/>
-                        <textarea name='quizDesc' rows='5' cols='50' />
+                        <textarea className= 'inputbox' name='quizDesc' rows='5' cols='50' />
                         </label><br/>
                         <input type='submit' />
                     </form>
