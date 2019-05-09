@@ -1,0 +1,34 @@
+.quizname {
+    font-size: 18px;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 30%; 
+    display: inline-block;
+} 
+
+.quizname:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+
+.quizpage {
+    background-color: rgb(173, 220, 243);
+    text-align: center;
+}
+
+.quizsel {
+    text-align: center;
+    font-family: 'Abril Fatface', cursive;
+}
+
+h1 {
+    font-size: 72px !important;
+    color: blue !important;
+    margin-top: 0px !important;
+    margin-bottom: 0px;
+}
+
+.quizlist {
+    display: inline-block;
+    margin: auto;
+}

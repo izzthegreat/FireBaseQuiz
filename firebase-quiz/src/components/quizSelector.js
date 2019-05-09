@@ -2,7 +2,7 @@ import React from 'react'
 import { database } from '../router'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import '../css/home.css'
+import '../css/quiz.css'
 
 
 class QuizSelector extends React.Component {
@@ -40,13 +40,13 @@ class QuizSelector extends React.Component {
 
     render() {
         return(
-            <div>
+            <div className = "quizpage">
                 <div className ="quizsel">
                     <h1>
                     Choose a quiz!
                     </h1>
                 </div>
-                <div>
+                <div className="quizlist">
                     <nav>
           {Object.keys(this.state.quizNames).map((name) => {
                             return(
