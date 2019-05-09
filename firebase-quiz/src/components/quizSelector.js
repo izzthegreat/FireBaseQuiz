@@ -3,7 +3,6 @@ import { database } from '../router'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import '../css/home.css'
-import QuizDel from './deleteQuiz'
 
 
 class QuizSelector extends React.Component {
@@ -55,12 +54,12 @@ class QuizSelector extends React.Component {
                                     <Link to={`/quiz/${encodeURIComponent(name)}`} id={name}>
                                         {name}
                                     </Link>
+                                    <span className='author'> by {this.state.quizNames[name].author}</span>
                                     <p>{this.state.quizNames[name].desc}</p>
                                     <input type='button' readOnly value='Delete' onClick={()=>this.state.deleteQuizPrompt(name)} />
                                 </div>
                             )
                         })}
-
                     </nav>
                 </div>
             </div>
