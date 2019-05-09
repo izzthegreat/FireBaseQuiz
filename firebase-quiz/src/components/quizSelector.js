@@ -3,7 +3,8 @@ import { database } from '../router'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import '../css/home.css'
-//import QuizDel from './deleteQuiz'
+import '../css/quiz.css'
+
 
 
 class QuizSelector extends React.Component {
@@ -41,7 +42,7 @@ class QuizSelector extends React.Component {
 
     render() {
         return(
-            <div>
+            <div className ="Component-Bg">
                 <div className ="quizsel">
                     <h1>
                     Choose a quiz!
