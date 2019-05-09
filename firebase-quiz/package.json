@@ -22,6 +22,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "predeploy": "react-scripts build",
+    "deploy": "firebase deploy",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -40,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.8.2"
   }
 }
