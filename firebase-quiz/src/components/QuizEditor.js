@@ -135,7 +135,7 @@ class QuizEditor extends React.Component {
 
     render(){
         return(
-            <div>
+            <div className= "Component-BgQuiz">
                 <div hidden={this.state.nameHidden}>
                     <form onSubmit={this.createNewQuiz.bind(this)}>
                         <label>

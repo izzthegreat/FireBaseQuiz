@@ -14,4 +14,3 @@ export default function Navigation (){
         <Nav.Link className="link" href="/editor">Make a quiz!</Nav.Link>
 </Navbar>
     )
-} 
