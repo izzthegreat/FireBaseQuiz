@@ -4,6 +4,7 @@ const initialState = {
     quiz: [{}],
     answers: [],
     quizName: 'Default',
+    editQuestion: {},
     score: 0
 }
 
@@ -14,6 +15,8 @@ const reducer = (state = initialState, action) => {
             return Object.assign({},state,state.score = action.score, state.answers = [])
         case 'CHANGE_ANSWER':
             return Object.assign({},state,state.answers[action.i] = (action.answer))
+        case 'SAVE_EDIT':
+            return Object.assign({},state, state.editQuestion = action.update)
         case 'NEW_QUIZ':
             return Object.assign({}, state, state.quizName = action.quizName)
         case 'TEST':
