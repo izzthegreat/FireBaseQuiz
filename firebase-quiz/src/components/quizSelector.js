@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import '../css/quiz.css'
 
 
+
 class QuizSelector extends React.Component {
     constructor(){
         super()
@@ -40,7 +41,8 @@ class QuizSelector extends React.Component {
 
     render() {
         return(
-            <div className = "quizpage">
+            <div className ="Component-Bg">
+
                 <div className ="quizsel">
                     <h1>
                     Choose a quiz!
