@@ -29,7 +29,7 @@ class QuizEditor extends React.Component {
         let newQuizName = e.target.elements.quizName.value
         let quizDesc = e.target.elements.quizDesc.value
         let author = e.target.elements.quizAuthor.value
-        if (author === '') {
+        if (!author) {
             author = 'Anonymous'
         } 
         this.setState({
