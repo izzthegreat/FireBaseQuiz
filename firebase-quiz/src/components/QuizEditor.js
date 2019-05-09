@@ -12,6 +12,7 @@ class QuizEditor extends React.Component {
             quiz: [],
             newQuizName: 'Default',
             newQuizDesc: '',
+            newQuizAuthor: '',
             score: 0,
             modalOpen: false,
             nameHidden: false,
@@ -27,9 +28,14 @@ class QuizEditor extends React.Component {
         // ...with the quiz name & descrition from the form
         let newQuizName = e.target.elements.quizName.value
         let quizDesc = e.target.elements.quizDesc.value
+        let author = e.target.elements.quizAuthor.value
+        if (author === '') {
+            author = 'Anonymous'
+        } 
         this.setState({
                 newQuizName: newQuizName,
                 newQuizDesc: quizDesc,
+                newQuizAuthor: author,
                 quiz: [],
                 nameHidden: true, //Hides the quizName form...
                 quizHidden: false //...and reveals the quizQuestion interface
@@ -100,14 +106,20 @@ class QuizEditor extends React.Component {
     }
 
     submitQuiz(){// Saves the quiz and submits it to Firebase
-        //This submits the questions
-        database.ref(`quizzes/${this.state.newQuizName}/`).set(this.state.quiz)
-        //THis submits the description for the links page
-        database.ref (`quizzes/quizNames/${this.state.newQuizName}/desc/`).set(this.state.newQuizDesc)
-        this.setState({
-            quizHidden: true, //Hides the quiz interface after completion.
-            thanksHidden: false //Reveals a thank you page?/component?/div?
-        })
+        if (this.state.quiz.length>0) {
+            //This submits the questions
+            database.ref(`quizzes/${this.state.newQuizName}/`).set(this.state.quiz)
+            //This submits the description for the links page
+            database.ref (`quizzes/quizNames/${this.state.newQuizName}/desc/`).set(this.state.newQuizDesc)
+            //This submits the author's name
+            database.ref (`quizzes/quizNames/${this.state.newQuizName}/author/`).set(this.state.newQuizAuthor)
+            this.setState({
+                quizHidden: true, //Hides the quiz interface after completion.
+                thanksHidden: false //Reveals a thank you page?/component?/div?
+            })
+        } else {
+            alert('You gotta add some questions first!!')
+        }
     }
 
     updateQuiz(edit){// Updates the quiz in state with an edited question
@@ -127,21 +139,27 @@ class QuizEditor extends React.Component {
                 <div hidden={this.state.nameHidden}>
                     <form onSubmit={this.createNewQuiz.bind(this)}>
                         <label>
-                            What is the name of your quiz? <br/>
-                            <input className = 'inputname' type='text' name='quizName' />
+                            What is the name of your quiz?* <br/>
+                            <input className ="inquiz" type='text' name='quizName' required  placeholder='Name your quiz'/>
                         </label><br/>
                         <label>
-                            Give a quick summary of your quiz. <br/>
-                        <textarea className= 'inputbox' name='quizDesc' rows='5' cols='50' />
+                            What is your name? <br/>
+                            <input className ="inname" type='text' name='quizAuthor' placeholder='Anonymous' />
                         </label><br/>
-                        <input type='submit' />
+                        <label>
+                            Give a short description of your quiz. <br/>
+                        <textarea className ="indesc" name='quizDesc' rows='2' cols='30' placeholder= 'Describe your quiz'/>
+                        </label><br/>
+                        <input class="btn btn-primary" type='submit' />
                     </form>
+                    <h6>*required</h6>
                 </div>
                 <div className='quizPreview' hidden={this.state.quizHidden}>
                     {/* Quiz Form Start */}
                     <form id='quizName' name={this.state.newQuizName} method='POST' onSubmit={this.getScore.bind(this)}>
                         <h1>{this.state.newQuizName}</h1>
-                        <p>{this.state.newQuizDesc}</p>
+                        <span className= "qauthor">by {this.state.newQuizAuthor}</span>
+                        <p className ="quizdesc">{this.state.newQuizDesc}</p>
                         <ol>
                             {
                                 // Map the questions from the local state to the pages
@@ -164,45 +182,47 @@ class QuizEditor extends React.Component {
                             }
                         </ol>
                         {/* Form submit button */}
-                        <input type='submit'/>
+                        <input class="btn btn-primary" type='submit'/>
                     </form>
-                    <div id='output'>
+                    <div className= "Fscore" id='output'>
                         Final Score: {this.state.score}%
                     </div>
                 </div>
                 <Modal isOpen={this.state.modalOpen} ariaHideApp={false} onRequestClose={this.closeModal}>
                     <div>
-                        <div>
+                        <div className ="Addquestion">
                             <h1>
                                Add New Question
                             </h1>
                         </div>
                         <form id='addQuestion' onSubmit={this.addQuestion.bind(this)} method='POST'>
                             <div hidden={this.state.qInputHidden}>
-                                Question:<input type='text' name='ask'/><br/>
-                                A:<input type='text' name='a'/><br/>
-                                B:<input type='text' name='b'/><br/>
-                                C:<input type='text' name='c'/><br/>
-                                D:<input type='text' name='d'/><br/>
-                                Correct Answer?<select name='correct'>
+                                Question:<input type='text' name='ask' required />*<br/>
+                                A:<input type='text' name='a' required />*<br/>
+                                B:<input type='text' name='b' required />*<br/>
+                                C:<input type='text' name='c' required />*<br/>
+                                D:<input type='text' name='d' required />*<br/>
+                                Correct Answer?<select name='correct' required>*
                                     <option value='a'>A</option>
                                     <option value='b'>B</option>
                                     <option value='c'>C</option>
                                     <option value='d'>D</option>
-                                </select><br/><br/>
-                                <input type='Submit' readOnly value='Add' />
+                                </select>*<br/>
+                                <h6>*required</h6><br/><br/>
+                                <input class="btn btn-primary" type='Submit' readOnly value='Add' />
+                             
                             </div>
                             <div>
-                                <input type='button' readOnly value='Close' onClick={this.closeModal.bind(this)} />
+                                <input type='button' class="btn btn-warning"readOnly value='Close' onClick={this.closeModal.bind(this)} />
                             </div>  
                         </form>
                     </div>
                 </Modal>
                 <div hidden={this.state.quizHidden}>
-                    <input type='button' name='newQuestion' readOnly value='Add New Question' onClick={this.openModal.bind(this)} />
-                    <input type='button' name='submitQuiz' readOnly value='Finish & Submit Quiz' onClick={this.submitQuiz.bind(this)}/>
+                    <input type='button'class="btn btn-success" name='newQuestion' readOnly value='Add New Question' onClick={this.openModal.bind(this)} />
+                    <input type='button' class="btn btn-primary" name='submitQuiz' readOnly value='Finish & Submit Quiz' onClick={this.submitQuiz.bind(this)}/>
                 </div>
-                <div id='thanksPage' hidden={this.state.thanksHidden}>
+                <div className ="thanks" id='thanksPage' hidden={this.state.thanksHidden}>
                     <h1>Thanks for Creating an Awesome Quiz!!!</h1>
                     <Link to={`/quiz/${encodeURIComponent(this.state.newQuizName)}`}>Take Your New Quiz</Link>
                 </div>

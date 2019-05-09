@@ -13,8 +13,11 @@ class Quiz extends React.Component {
             quiz: [{}],
             quizName: '',
             quizDesc: '',
+            quizAuth: '',
             hideQuiz: false,
             hideScore: true,
+            correct: 0,
+            total: 0,
             score: 0
         }
     }
@@ -56,6 +59,8 @@ class Quiz extends React.Component {
         let grade = ((score/answers.length)*100).toFixed(0)
         //Send the score to the local state...
         this.setState({
+            total: answers.length,
+            correct: score,
             score: grade,
             hideQuiz: true,
             hideScore: false
@@ -91,6 +96,7 @@ class Quiz extends React.Component {
                         <input type='submit'/>
                     </form>
                     <div id='output' hidden={this.state.hideScore}>
+                    {`${this.state.correct}/${this.state.total}`}<br/>
                     Final Score: {this.state.score}%
                     </div>
                 </div>
