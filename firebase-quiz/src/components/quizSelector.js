@@ -3,7 +3,7 @@ import { database } from '../router'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import '../css/home.css'
-import QuizDel from './deleteQuiz'
+//import QuizDel from './deleteQuiz'
 
 
 class QuizSelector extends React.Component {
@@ -45,7 +45,7 @@ class QuizSelector extends React.Component {
                                             {name}
                                         </Link>
                                         <p>{this.state.quizNames[name].desc}</p>
-         <QuizDel/>                           
+         {/* <QuizDel/>                            */}
          </div>
          </container>
                                 )
