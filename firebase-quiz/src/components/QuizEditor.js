@@ -204,7 +204,7 @@ class QuizEditor extends React.Component {
                 </div>
                 <div id='thanksPage' hidden={this.state.thanksHidden}>
                     <h1>Thanks for Creating an Awesome Quiz!!!</h1>
-                    <Link to={`/quiz/${this.state.newQuizName}`}>Take Your New Quiz</Link>
+                    <Link to={`/quiz/${encodeURIComponent(this.state.newQuizName)}`}>Take Your New Quiz</Link>
                 </div>
             </div>
         )

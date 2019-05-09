@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap-theme.css'
 import "../css/Navbar.css"
 
 //import {Nav, Navbar, Container} from 'react-bootstrap'
-import {Navbar, NavDropdown, Nav } from 'react-bootstrap'
+import {Navbar, Nav } from 'react-bootstrap'
 
 
 

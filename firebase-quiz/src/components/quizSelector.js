@@ -51,7 +51,7 @@ class QuizSelector extends React.Component {
                         {Object.keys(this.state.quizNames).map((name) => {
                             return(
                                 <div className="quizname">
-                                    <Link to={`/quiz/${name}`} id={name}>
+                                    <Link to={`/quiz/${encodeURIComponent(name)}`} id={name}>
                                         {name}
                                     </Link>
                                     <p>{this.state.quizNames[name].desc}</p>

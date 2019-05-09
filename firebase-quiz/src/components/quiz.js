@@ -21,15 +21,16 @@ class Quiz extends React.Component {
 
     componentDidMount() {
         const {match: { params }} = this.props
-        this.props.quizSelect(params.quizName)
+        let quizName = decodeURIComponent(params.quizName)
+        this.props.quizSelect(quizName)
         // Retrieve quiz info from Firebase
-        const quiz = database.ref(`quizzes/${params.quizName}/`)
-        const desc = database.ref(`quizzes/quizNames/${params.quizName}/desc`)
+        const quiz = database.ref(`quizzes/${quizName}/`)
+        const desc = database.ref(`quizzes/quizNames/${quizName}/desc`)
         quiz.once('value', snapshot => {
             let questions = snapshot.val()
             this.setState({
                 quiz: questions,
-                quizName: params.quizName
+                quizName: quizName
                 })
         })
         desc.once('value', snapshot => {
