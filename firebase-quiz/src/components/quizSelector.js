@@ -55,8 +55,9 @@ class QuizSelector extends React.Component {
                                 <div className="quizname">
                                     <Link to={`/quiz/${encodeURIComponent(name)}`} id={name}>
                                         {name}
-                                    </Link>
+                                    </Link> <br/>
                                     <span className='author'> by {this.state.quizNames[name].author}</span>
+
                                     <p>{this.state.quizNames[name].desc}</p>
                                     <input type='button'class="btn btn-danger" readOnly value='Delete' onClick={()=>this.state.deleteQuizPrompt(name)} />
                                 </div>
