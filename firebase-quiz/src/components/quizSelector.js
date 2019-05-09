@@ -3,6 +3,7 @@ import { database } from '../router'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import '../css/home.css'
+import QuizDel from './deleteQuiz'
 
 
 class QuizSelector extends React.Component {
@@ -48,7 +49,7 @@ class QuizSelector extends React.Component {
                 </div>
                 <div>
                     <nav>
-                        {Object.keys(this.state.quizNames).map((name) => {
+          {Object.keys(this.state.quizNames).map((name) => {
                             return(
                                 <div className="quizname">
                                     <Link to={`/quiz/${encodeURIComponent(name)}`} id={name}>
@@ -59,6 +60,7 @@ class QuizSelector extends React.Component {
                                 </div>
                             )
                         })}
+
                     </nav>
                 </div>
             </div>
