@@ -38,6 +38,11 @@ class QuizSelector extends React.Component {
         database.ref(`quizzes/quizNames/${quiz}`).set(null)
         database.ref(`quizzes/${quiz}`).set(null)
     }
+    handleEdit(quiz) {
+        this.setState({
+          editMode: true
+        });
+      }
 
     render() {
         return(
@@ -59,12 +64,16 @@ class QuizSelector extends React.Component {
                                     <span className='author'> by {this.state.quizNames[name].author}</span>
                                     <p>{this.state.quizNames[name].desc}</p>
                                     <input type='button'class="btn btn-danger" readOnly value='Delete' onClick={()=>this.state.deleteQuizPrompt(name)} />
+                                    <input type= "button" class= "btn btn-warning" value='Edit' onClick={this.handleEdit.bind(this)}/>
                                 </div>
+                               
                             )
                         })}
                     </nav>
                 </div>
             </div>
+
+            
         )
     }
 } 
