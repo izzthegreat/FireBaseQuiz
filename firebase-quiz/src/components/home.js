@@ -5,10 +5,15 @@ import BackgroundSlideshow from 'react-background-slideshow'
 import image1 from '../Images/bluesplash.jpg'
 import image2 from '../Images/bluemtn.jpg'
 import image3 from '../Images/blueflower.jpg'
-import image4 from '../Images/blueice.jpg'
+// import image4 from '../Images/comet.jpg'
 import image5 from '../Images/bluewave.jpg'
-import image6 from '../Images/mockaroon.jpg'
+import image6 from '../Images/net.jpg'
 import image7 from '../Images/icebluewave.jpg'
+import image8 from '../Images/redblue.jpg'
+import image9 from '../Images/jellyfish.jpg'
+import image10 from '../Images/mockaroon.jpg'
+import image11 from '../Images/starnite.jpg'
+import image12 from '../Images/blueice.jpg'
 function Home () {
 
     return(
@@ -21,7 +26,7 @@ function Home () {
                 <img src={logo} className = "app-logo" alt="qblogo"/>
                 </div>
                 <div className ="BS">
-                <BackgroundSlideshow className ="BS" images={[ image1, image2, image3, image4, image5, image6, image7 ]} />
+                <BackgroundSlideshow className ="BS" images={[ image1, image2, image3, image5, image6, image7, image8, image9, image10, image11, image12      ]} />
                 </div>
             </div>   
         )
