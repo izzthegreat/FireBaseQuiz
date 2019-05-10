@@ -147,7 +147,7 @@ class QuizEditor extends React.Component {
                             <input type='text' name='quizAuthor' placeholder='Anonymous' />
                         </label><br/>
                         <label>
-                            Give a short description of your quiz. <br/>
+                            Give a short description. <br/>
                         <textarea name='quizDesc' rows='2' cols='30' />
                         </label><br/>
                         <input type='submit' />
