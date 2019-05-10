@@ -3,12 +3,14 @@ main{
 }
 
 .homepage{
-    height: 100vh;
+    height: 100%;
     text-align: center;
     font-size: 72px;
-    color: blue;
+    text-shadow: 5px 5px white;
+    color: rgb(13, 13, 160);
     font-family: 'Kaushan Script', cursive;
-    background-color: rgb(217, 237, 247);
+    margin-bottom: 0;
+    /* background-color: rgb(217, 237, 247); */
 }
 
 /* .logo {
@@ -35,6 +37,13 @@ main{
       transform: rotate(180deg);
     }
   }
+.welogo{
+  z-index: 99;
+}
 
-
-
+.box-gallery{ 
+  z-index: -10;
+  height: 100%;
+  /* margin-bottom: 0; */
+  position: absolute;
+}
