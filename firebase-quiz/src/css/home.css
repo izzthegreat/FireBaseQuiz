@@ -6,8 +6,8 @@ main{
     height: 100%;
     text-align: center;
     font-size: 72px;
-    text-shadow: 5px 5px white;
-    color: rgb(13, 13, 160);
+    text-shadow: 3px 3px rgb(13, 13, 160);
+    color: white;
     font-family: 'Kaushan Script', cursive;
     margin-bottom: 0;
     /* background-color: rgb(217, 237, 247); */
