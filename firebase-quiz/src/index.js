@@ -2,7 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import AppRouter from './router';
-import store from './store/' 
+import store from './store/'
+import './css/quiz.css' 
 
 ReactDOM.render(<AppRouter store={store} />, document.getElementById('root'));
 

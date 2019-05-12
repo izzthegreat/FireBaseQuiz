@@ -140,7 +140,7 @@ class QuizEditor extends React.Component {
                     <form onSubmit={this.createNewQuiz.bind(this)}>
                         <label>
                             What is the name of your quiz?* <br/>
-                            <input className ="inquiz" type='text' name='quizName' required  placeholder='Name your quiz'/>
+                            <input className ="inquiz" type='text' name='quizName' required />
                         </label><br/>
                         <label>
                             What is your name? <br/>
@@ -148,11 +148,11 @@ class QuizEditor extends React.Component {
                         </label><br/>
                         <label>
                             Give a short description of your quiz. <br/>
-                        <textarea className ="indesc" name='quizDesc' rows='2' cols='30' placeholder= 'Describe your quiz'/>
+                        <textarea className ="indesc" name='quizDesc' rows='2' cols='30'/>
                         </label><br/>
-                        <input class="btn btn-primary" type='submit' />
+                        <input className="btn btn-primary" type='submit' />
                     </form>
-                    <h6>*required</h6>
+                    <h6 className='required'>*required</h6>
                 </div>
                 <div className='quizPreview' hidden={this.state.quizHidden}>
                     {/* Quiz Form Start */}
@@ -208,7 +208,7 @@ class QuizEditor extends React.Component {
                                     <option value='c'>C</option>
                                     <option value='d'>D</option>
                                 </select>*<br/>
-                                <h6>*required</h6><br/><br/>
+                                <h6 className='required'>*required</h6><br/><br/>
                                 <input class="btn btn-primary" type='Submit' readOnly value='Add' />
                              
                             </div>

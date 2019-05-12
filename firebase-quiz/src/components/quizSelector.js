@@ -2,7 +2,6 @@ import React from 'react'
 import { database } from '../router'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-import '../css/quiz.css'
 
 
 

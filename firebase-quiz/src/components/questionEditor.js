@@ -1,7 +1,5 @@
 import React, {useState} from 'react'
 import { connect } from 'react-redux'
-import '../css/quiz.css'
-
 
 function QuestionEdit (props) {
 
