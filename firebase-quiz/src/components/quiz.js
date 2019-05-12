@@ -3,6 +3,7 @@ import { database } from '../router'
 import Question from './question.js'
 import { connect } from 'react-redux'
 import '../css/quiz.css'
+//import MySound from './sound'
 
 
 class Quiz extends React.Component {
@@ -73,7 +74,8 @@ class Quiz extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className = "quiz">
+            {/* <MySound/> */}
                 <form id='quizName' name={this.state.quizName} method='POST' hidden={this.state.hideQuiz} onSubmit={this.getScore.bind(this)}>
                     <h1>{this.state.quizName}</h1>
                     <p>{this.state.quizDesc}</p>
