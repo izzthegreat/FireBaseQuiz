@@ -21,13 +21,12 @@ function QuestionEdit (props) {
             correct: correct,
             id: props.id
         }
-        props.updateQuiz(update)
-        
+        props.updateQuiz(update)  
     }
 
     let question
 
-    if (edit===true) {
+    if (edit === true) {
         question = 
             <div>
                 <form id={`form${props.id}`}  method='POST' onSubmit={getEdit}>

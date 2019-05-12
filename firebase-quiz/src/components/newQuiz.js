@@ -1,35 +1,47 @@
-import React from 'react'
-import { database } from '../router'
-import { Redirect } from 'react-router' 
+import React, { useState } from 'react'
+import { Redirect } from 'react-router-dom' 
 
-function newQuiz (){
+export default function NewQuiz () {
+    
+    const [route, setRoute] = useState(<div></div>) 
 
+    const useNewQuiz = (e) => {// Creates an new empty quiz...
+        e.preventDefault()
+        setRoute(
+            <div>
+                <Redirect to = {
+                    { pathname: '/edit',
+                        state: { //...using the info from the form
+                            name: e.target.elements.quizName.value,
+                            desc: e.target.elements.quizDesc.value,
+                            auth: !e.target.elements.quizAuthor.value ?'Anonymous' :e.target.elements.quizAuthor.value,
+                            quiz: []
+                        }
+                    }
+                } />
+            </div>
+        )
+    }
 
     return(
-        <div>
-            <form onSubmit={this.createNewQuiz.bind(this)}>
+        <div className='Component-BgQuiz'>
+            <form onSubmit={useNewQuiz}>
                 <label>
                     What is the name of your quiz?* <br/>
-                    <input className ="inquiz" type='text' name='quizName' required />
+                    <input className="inquiz" type='text' name='quizName' required />
                 </label><br/>
                 <label>
                     What is your name? <br/>
-                    <input className ="inname" type='text' name='quizAuthor' placeholder='Anonymous' />
+                    <input className="inname" type='text' name='quizAuthor' placeholder='Anonymous' />
                 </label><br/>
                 <label>
                     Give a short description of your quiz. <br/>
-                <textarea className ="indesc" name='quizDesc' rows='2' cols='30'/>
+                <textarea className="indesc" name='quizDesc' rows='2' cols='30'/>
                 </label><br/>
                 <input className="btn btn-primary" type='submit' />
             </form>
             <h6 className='required'>*required</h6>
-            {
-                if (edit == true) {
-                    route = <Redirect to='/quizEdit' />
-                }
-            }
+            { route }           
         </div>
     )
 }
-
-export default newQuiz

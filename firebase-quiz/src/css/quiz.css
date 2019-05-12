@@ -45,6 +45,7 @@ h1 {
     height: 100vh;
     padding-left: 10px;
     background-size: cover;
+    background-attachment: fixed;
     background-image: url('https://images.unsplash.com/photo-1468421870903-4df1664ac249?ixlib=rb-1.2.1&auto=format&fit=crop&w=1489&q=80')    
 }
   

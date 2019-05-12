@@ -6,41 +6,20 @@ import Modal from 'react-modal';
 import QuestionEdit from './questionEditor';
 
 class QuizEditor extends React.Component {
-    constructor () {
+    constructor (props) {
         super()
         this.state = {
-            quiz: [],
-            newQuizName: 'Default',
-            newQuizDesc: '',
-            newQuizAuthor: '',
+            quiz: props.location.state.quiz,
+            newQuizName: props.location.state.name,
+            newQuizDesc: props.location.state.desc,
+            newQuizAuthor: props.location.state.auth,
             score: 0,
             modalOpen: false,
-            nameHidden: false,
-            quizHidden: true,
+            quizHidden: false,
             qInputHidden: false,
             thanksHidden: true,
             updateQuiz: this.updateQuiz.bind(this)
         }
-    }
-
-    createNewQuiz(e) {// Creates an new empty quiz in the state...
-        e.preventDefault()
-        // ...with the quiz name & descrition from the form
-        let newQuizName = e.target.elements.quizName.value
-        let quizDesc = e.target.elements.quizDesc.value
-        let author = e.target.elements.quizAuthor.value
-        if (!author) {
-            author = 'Anonymous'
-        } 
-        this.setState({
-                newQuizName: newQuizName,
-                newQuizDesc: quizDesc,
-                newQuizAuthor: author,
-                quiz: [],
-                nameHidden: true, //Hides the quizName form...
-                quizHidden: false //...and reveals the quizQuestion interface
-        })
-        console.log('Quiz Creation State', this.state)
     }
 
     getScore(e) { // Scoring Machanism
@@ -136,24 +115,6 @@ class QuizEditor extends React.Component {
     render(){
         return(
             <div className= "Component-BgQuiz">
-                <div hidden={this.state.nameHidden}>
-                    <form onSubmit={this.createNewQuiz.bind(this)}>
-                        <label>
-                            What is the name of your quiz?* <br/>
-                            <input className ="inquiz" type='text' name='quizName' required />
-                        </label><br/>
-                        <label>
-                            What is your name? <br/>
-                            <input className ="inname" type='text' name='quizAuthor' placeholder='Anonymous' />
-                        </label><br/>
-                        <label>
-                            Give a short description of your quiz. <br/>
-                        <textarea className ="indesc" name='quizDesc' rows='2' cols='30'/>
-                        </label><br/>
-                        <input className="btn btn-primary" type='submit' />
-                    </form>
-                    <h6 className='required'>*required</h6>
-                </div>
                 <div className='quizPreview' hidden={this.state.quizHidden}>
                     {/* Quiz Form Start */}
                     <form id='quizName' name={this.state.newQuizName} method='POST' onSubmit={this.getScore.bind(this)}>
