@@ -1,6 +1,6 @@
 import React from 'react'
 import { database } from '../router'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 
 
@@ -11,10 +11,11 @@ class QuizSelector extends React.Component {
         this.state={
             quizNames:[],
             deleteQuizPrompt: this.deleteQuizPrompt.bind(this),
-            deleteQuiz: this.deleteQuiz.bind(this)
+            deleteQuiz: this.deleteQuiz.bind(this),
+            handleEdit: this.handleEdit.bind(this),
+            route: <div id='redirect'/>
         }
     }
-
     componentDidMount() {
         let data = database.ref('quizzes/quizNames/')
         data.on('value', snapshot => {
@@ -37,13 +38,29 @@ class QuizSelector extends React.Component {
         database.ref(`quizzes/quizNames/${quiz}`).set(null)
         database.ref(`quizzes/${quiz}`).set(null)
     }
-    handleEdit(quiz) {
-        this.setState({
-          editMode: true
-        });
-      }
+
+    handleEdit(quizName) {
+        let data = database.ref(`quizzes/${quizName}/`)
+        data.once('value', (snapshot) => {
+            this.setState({
+                route:
+                    <Redirect to = {
+                        { pathname: '/edit',
+                            state: {
+                                name: quizName,
+                                desc: this.state.quizNames[quizName].desc,
+                                auth: this.state.quizNames[quizName].author,
+                                quiz: snapshot.val()
+                            }
+                        }
+                    } />
+            })
+            console.log (this.state.route)
+        })
+    }
 
     render() {
+        let route = this.state.route
         return(
             <div className ="Component-Bg">
 
@@ -61,12 +78,11 @@ class QuizSelector extends React.Component {
                                         {name}
                                     </Link> <br/>
                                     <span className='author'> by {this.state.quizNames[name].author}</span>
-
                                     <p>{this.state.quizNames[name].desc}</p>
-                                    <input type='button'class="btn btn-danger" readOnly value='Delete' onClick={()=>this.state.deleteQuizPrompt(name)} />
-                                    <input type= "button" class= "btn btn-warning" value='Edit' onClick={this.handleEdit.bind(this)}/>
+                                    <input type='button'className="btn btn-danger" readOnly value='Delete' onClick={()=>this.state.deleteQuizPrompt(name)} />
+                                    <input type= "button" className= "btn btn-warning" value='Edit' onClick={()=>this.state.handleEdit(name)}/>
+                                    {route}
                                 </div>
-                               
                             )
                         })}
                     </nav>
