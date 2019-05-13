@@ -95,9 +95,9 @@ class Quiz extends React.Component {
                         }
                         </ol>
                         {/* Form submit button */}
-                        <input type='submit'/>
+                        <input className='inname' type='submit'/>
                     </form>
-                    <div id='output' hidden={this.state.hideScore}>
+                    <div className='Fscore' id='output' hidden={this.state.hideScore}>
                     {`${this.state.correct}/${this.state.total}`}<br/>
                     Final Score: {this.state.score}%
                     </div>

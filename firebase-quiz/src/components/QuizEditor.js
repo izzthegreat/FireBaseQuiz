@@ -118,7 +118,7 @@ class QuizEditor extends React.Component {
                 <div className='quizPreview' hidden={this.state.quizHidden}>
                     {/* Quiz Form Start */}
                     <form id='quizName' name={this.state.newQuizName} method='POST' onSubmit={this.getScore.bind(this)}>
-                        <h1>{this.state.newQuizName}</h1>
+                        <h1 className='quizTitle'>{this.state.newQuizName}</h1>
                         <span className= "qauthor">by {this.state.newQuizAuthor}</span>
                         <p className ="quizdesc">{this.state.newQuizDesc}</p>
                         <ol>
